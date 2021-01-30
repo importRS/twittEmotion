@@ -118,7 +118,7 @@ def set_html(tweets):
     # percentage of negative tweets
     print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets)))
     # percentage of neutral tweets
-    print("Neutral tweets percentage: {} % \ ".format(100*(len(tweets) -(len( ntweets )+len( ptweets)))/len(tweets)))
+    print("Neutral tweets percentage: {} %".format(100*(len(tweets) -(len( ntweets )+len( ptweets)))/len(tweets)))
 
 
     textTweet = []
@@ -147,21 +147,11 @@ def set_html(tweets):
                         height=700,
                         random_state=21,
                         max_font_size=120).generate(wcloud)
-    if os.path.exists("static/images/img_*.png"):
-        [os.remove(file) for file in glob.glob('static/images/img_*.png')]
-
+    # if os.path.exists("static/images/img_*.png"):
+    for fname in os.listdir('/Users/satya/Desktop/ML_Twitter/static/images'):
+        os.remove("/Users/satya/Desktop/ML_Twitter/static/images/"+fname)
     image_name = "img_{}.png".format(str(uuid.uuid4()))
     wordcloud.to_file('static/images/{}'.format(image_name))
-
-    # plt.figure(figsize=(15, 8))
-    # plt.imshow(wordcloud, interpolation="bilinear")
-    # plt.axis('off')
-
-    # plt.savefig('static/images/{}'.format(image_name),
-    #             transparent=True,
-    #             bbox_inches='tight')
-
-
 
     copyfile('templates/index.html','templates/copyindex.html')
     f = open('templates/copyindex.html','a', encoding='utf-8')
