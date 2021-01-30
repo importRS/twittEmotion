@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitter </title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h1>Hi There!</h1>
+  <div id="pieChart"></div>
+  <div id="barChart"></div>
+  <img src='{{ url_for('static', filename='images/img_729ad9ce-6a56-4124-878a-28b32f3ad3b4.png') }}' alt='wordcloud' ><h1 class='posHeading'>Recent Positive Tweets</h1>
+<div class='pos'>
+<p>RT @narendramodi: Tributes to the great Bapu on his Punya Tithi. His ideals continue to motivate millions. 
+
+On Martyrs’ Day we recall the…</p>
+<p>RT @sri50: #India vice-captain @ajinkyarahane88 watched and loved #sooraraipotru https://t.co/zaY5X0dTnv</p>
+<p>@csniteshgandhi Your Tweet has been forwarded to the concerned TSP/Division for necessary action.</p>
+<p>RT @veekay122002: The amazing umbilical connect between the Farmer agitations and the simple PAN number. Anything that hits at root of corr…</p>
+<p>RT @praxpriya: There was no outrage when teargas was used on peacefully protesting civilians though Geneva Protocol forbids its usage even…</p>
+<p>@SherePanjabUK's account has been withheld in India in response to a legal demand. Learn more.</p>
+<p>Shubman Is A Real Player For India’s Future, Says Mike Hussey
+@mhussey393 @RealShubmanGill @CricketAus @BCCI 
+#BCCI… https://t.co/k24XRMhCNj</p>
+<p>RT @BefittingFacts: Kerala has 43% of total active corona cases in India but no one wants to talk about Kerala Model.</p>
+<p>#UN Secretary General Antonio Guterres has said in his statement that there is no military solution to the decades-… https://t.co/yBjWuqqOwX</p>
+<p>RT @dionysus13: Parents protest against Gurugram school asking for full fees | Gurgaon News - Times of India https://t.co/bZS6xmOeiV</p>
+</div>
+<h1 class='negHeading'>Recent Negative Tweets</h1>
+<div class='neg'>
+<p>RT @Iloveuyapotato: Start tagging @MIB_India with ur few tweets even. They will notice the issue and stop the HYPOCRISY @ColorsTV is promot…</p>
+<p>RT @saagar_dr: My humble tributes to #Bapu whose teachings continue to inspire the world to walk the path of truth, non-violence &amp; satyagra…</p>
+<p>RT @GujjuAnnaRaskla: Name:- BUGATTI...
+Price:- 16 crore car, world fastest...
+but stuck in a small speed breaker in India- INDIA ROCKS... 🤣…</p>
+<p>RT @WeatherRadarIN: What a winter day in India has to offer: cold wave conditions from #Punjab to #Telangana, air quality deteriorating in…</p>
+<p>@narendramodi @PrakashJavdekar In his reign the media gets away with fake news and sedition. Nothing has changed in… https://t.co/CgIEYdRRox</p>
+<p>India avoided 37 lakh Covid cases, 1 lakh deaths due to its response strategy: CEA Subramanian… https://t.co/2iF8omfM9p</p>
+<p>RT @karuneshshukla8: CHARKHASUR... 
+who
+inserted Allah in  BHAJAN..
+
+Made HINDU coward by singing AHINSA AHINSA.. 
+
+made Pak..
+Forced to ke…</p>
+<p>RT @amaanbali: Bullet shots were fired. Everyone on ground reported that. Shots were heard. Govt and Police is deaf. It is insane how they…</p>
+<p>‘Coming back is second birth for me’: Kutch man returns home after 13 years in Pakistan jail… https://t.co/ZFwoTuR9C1</p>
+<p>"I always feel you should know to manage both success and failure. There should not be any fluctuations. My family… https://t.co/F9E6iWoUNx</p>
+</div>
+<h1 class='neuHeading'>Recent Neutral Tweets</h1>
+<div class='neu'>
+<p>RT @anekasandhux: I can’t believe it’s still only Sikhs talking about the situation in India???? How is no one else seeing these brutality…</p>
+<p>RT @AnshuDubey22: Speed increases kro 
+
+Location India kro
+
+VIEWERS WITH ABHINAV https://t.co/z5a66cZ3U5</p>
+<p>@srivatsayb The Three Biggest Frauds in India...
+
+Nehru is Gandhi
+Khan is Gandhi
+Vadra is Gandhi... 
+
+Adding all of… https://t.co/q28GTP2SjR</p>
+<p>RT @PritamR75703464: Jo jo bangladesh nepal pakistan se trending me participate kar rahe ho plz change your location to India
+VIEWERS WITH…</p>
+<p>RT @Thalamoses: #எச்சநாய்விஜய் is Trending On 4th Position at India Trends &amp; 136K Tweets🔥
+
+#Valimai https://t.co/hgk0ydierE</p>
+<p>RT @Jassisidhu: We CANNOT &amp; MUST NOT accept this
+
+In the summer #BLM movement showed how change HAD to happen when communities are constant…</p>
+<p>RT @Ramgarhia_13: Nothing changed in India everything is same before freedom and after freedom.
+#ModiPlanningFarmerGenocide https://t.co/zQ…</p>
+<p>RT @paranjoygt: Times of India parent company sues media watchdog Newslaundry for $13.7 million: https://t.co/Y91tpEivQs</p>
+<p>RT @Sourav_RB: “Nand Kishor Gurjar (BJP's Loni MLA), please pay us a visit today. We want to meet you since we couldn’t meet last evening.…</p>
+<p>RT @Ksareen30: @SadhguruJV When I visited the dhyanalinga and devi temple at Sadhgurus ashram I was amazed to see that both in terms of att…</p>
+</div>
+
+           <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+           <script type="text/javascript">
+
+          google.charts.load('current', {'packages':['corechart']});
+
+          google.charts.setOnLoadCallback(drawCharts);
+
+
+          function drawPie() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Sentiment');
+            data.addColumn('number', 'Tweets');
+            data.addRows([
+              ['Positive', 33],
+              ['Negative', 13],
+            ]);
+
+            var options = {'title':'Sentiment Analysis by Percentage',
+                            is3D:true,
+                           'colors':['#2D912D','#FF1919','#62B1FF'],
+                           titleTextStyle: {color:'#47525C'},
+                           'backgroundColor':'#C0DEED',
+                           'width':500,
+                           'height':300};
+
+            var chart1 = new google.visualization.PieChart(document.getElementById('pieChart'));
+            chart1.draw(data, options);
+          }
+
+
+
+          function drawBar() {
+
+            var data = google.visualization.arrayToDataTable([
+              ['Sentiment', 'Positive', 'Negative', 'Neutral'],
+              ['Sentiments' ,33, 13, 44]
+            ]);
+
+            var options = {
+              animation: {
+              duration: 1000,
+              easing: 'out',
+              startup: true
+                       },
+              title:'Sentiment Analysis by Count',
+              titleTextStyle: {color:'#47525C'},
+              hAxis: {minValue: 0}, 
+              'backgroundColor':'#C0DEED',
+              'colors':['#2D912D','#FF1919','#4169E1'],
+              'width':500, 'height':300
+            };
+
+            var chart2 = new google.visualization.BarChart(document.getElementById('barChart'));
+            chart2.draw(data, options);
+          }
+
+          function drawCharts() {
+            drawPie();
+            drawBar();
+          }
+        </script></body></html>
