@@ -15,7 +15,6 @@ from shutil import copyfile
 
 plt.style.use('fivethirtyeight')
 
-
 image_name = ""
 
 
@@ -102,6 +101,7 @@ class TwitterClient(object):
             # print error (if any)
             print("Error : " + str(e))
 
+
 # class ends
 
 
@@ -110,19 +110,19 @@ def set_html(tweets):
     # picking positive tweets from tweets
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
     # percentage of positive tweets
-    print("Positive tweets percentage: {} %".format(
-        100*len(ptweets)/len(tweets)))
+    print("Positive tweets percentage: {} %".format(100 * len(ptweets) /
+                                                    len(tweets)))
     # picking negative tweets from tweets
     ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
     # picking neutral tweets from tweets
     neutweets = [tweet for tweet in tweets if tweet['sentiment'] == 'neutral']
 
     # percentage of negative tweets
-    print("Negative tweets percentage: {} %".format(
-        100*len(ntweets)/len(tweets)))
+    print("Negative tweets percentage: {} %".format(100 * len(ntweets) /
+                                                    len(tweets)))
     # percentage of neutral tweets
     print("Neutral tweets percentage: {} %".format(
-        100*(len(tweets) - (len(ntweets)+len(ptweets)))/len(tweets)))
+        100 * (len(tweets) - (len(ntweets) + len(ptweets))) / len(tweets)))
 
     textTweet = []
     cleanTweet = []
@@ -138,9 +138,10 @@ def set_html(tweets):
     df = pd.concat([
         pd.DataFrame(textTweet, columns=['tweet']),
         pd.DataFrame(cleanTweet, columns=['cleantweet'])
-    ], axis=1)
-    df = pd.concat([df, pd.DataFrame(sentimentTweet, columns=['sentiment'])],
+    ],
                    axis=1)
+    df = pd.concat(
+        [df, pd.DataFrame(sentimentTweet, columns=['sentiment'])], axis=1)
 
     wcloud = ' '.join([i for i in df['cleantweet']])
 
@@ -149,10 +150,10 @@ def set_html(tweets):
                           random_state=21,
                           max_font_size=120).generate(wcloud)
     # if os.path.exists("static/images/img_*.png"):
-    dir_path = os.path.dirname(full_path)
+    dir_path = os.path.dirname(__file__)
 
-    for fname in os.listdir(dir_path+'\static\images'):
-        os.remove(dir_path+"\static\images\\"+fname)
+    for fname in os.listdir(dir_path + '\static\images'):
+        os.remove(dir_path + "\static\images\\" + fname)
 
     image_name = "img_{}.png".format(str(uuid.uuid4()))
     wordcloud.to_file('static/images/{}'.format(image_name))
@@ -160,16 +161,14 @@ def set_html(tweets):
     copyfile('templates/index.html', 'templates/copyindex.html')
     f = open('templates/copyindex.html', 'a', encoding='utf-8')
 
-    f.write(
-        "<img src='{{ url_for('static', filename='images/%s') }}' alt='wordcloud' >" % (image_name))
+    f.write( "<img src='{{ url_for('static', filename='images/%s') }}' alt='wordcloud' >" % (image_name))
     f.write("</div>")
-    f.write(""" 
-       <div class="pos" id="posid">
+    f.write("""<div class="pos" id="posid">
        <h1 class="posHeading">Recent Positive Tweets</h1>
       <div class="subdiv">
                  """)
     for tweet in ptweets[:10]:
-        f.write("<p>"+tweet['text']+"</p>\n")
+        f.write("<p>" + tweet['text'] + "</p>\n")
     f.write("</div>\n")
     f.write("</div>\n")
 
@@ -178,92 +177,85 @@ def set_html(tweets):
       <div class="subdiv">
     """)
     for tweet in ntweets[:10]:
-        f.write("<p>"+tweet['text']+"</p>\n")
+        f.write("<p>" + tweet['text'] + "</p>\n")
     f.write("</div>\n")
     f.write("</div>\n")
 
-    f.write("""
-    <div class="neu" id="neuid">
+    f.write("""<div class="neu" id="neuid">
       <h1 class="neuHeading">Recent Neutral Tweets</h1>
       <div class="subdiv">
-    """)
+            """)
     for tweet in neutweets[:10]:
-        f.write("<p>"+tweet['text']+"</p>\n")
+        f.write("<p>" + tweet['text'] + "</p>\n")
     f.write("</div>\n")
     f.write("</div>\n")
 
     f.write("""
-    <script type="text/javascript">
-      google.charts.load("current", { packages: ["corechart"] });
-
-      google.charts.setOnLoadCallback(drawPie);
-
-      function drawPie() {
-        var data = new google.visualization.DataTable();
-        data.addColumn("string", "Sentiment");
-        data.addColumn("number", "Tweets");
-        data.addRows([
-          ["Positive", %s],
-          ["Negative", %s],
-        ]);
-
-        var options = {
-          title: "Sentiment Analysis by Percentage",
-          is3D: true,
-        pieSliceTextStyle: {color: "white" ,fontSize:20,bold: true},
-          colors: ["#51CDA0", "#ff5252", "#62B1FF"],
-          titleTextStyle: { color: "#000" ,fontSize:25,fontWeight:0},
-          backgroundColor: "#d0eaf7",
-          width: 700,
-          height: 500,
-        };
-
-        var chart1 = new google.visualization.PieChart(
-          document.getElementsByClassName("pieChart")[0]
-        );
-        chart1.draw(data, options);
-      }
-
-      var chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-        title: {
-          text: "Analysis by Count",
-          fontFamily: "monospace",
-          fontSize: 25,
-          fontWeight:900,
-        },
-        axisX: {
-          interval: 1,
-        },
-        axisY: {
-          title: "Counts ",
-          includeZero: true,
-        },
-        data: [
-          {
-            type: "bar",
-            toolTipContent:
-              '<img src="https://canvasjs.com/wp-content/uploads/images/gallery/javascript-column-bar-charts/"{url}"" style="width:40px; height:20px;"> <b>{label}</b><br>Budget: ${y}bn<br>{gdp}% of GDP',
-            dataPoints: [
-              { label: "Positive", y: %s},
-              {
-                label: "Negative",
-                y: %s
-              },
-              { label: "Neutral", y: %s },
-            ],
-          },
-        ],
-      });
-
-      chart.render();
-
-    </script>""" % (len(ptweets), len(ntweets), len(ptweets), len(ntweets), len(neutweets)))
-
-    f.write(""" <!-- Footer -->
+       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     
-    <i class="place icon fas fa-long-arrow-alt-down fa-3x"></i>
-    <footer class="colored-section" id="footer">
+          <script type='text/javascript'>
+          google.charts.load("current", { packages: ["corechart"] });
+          google.charts.setOnLoadCallback(drawPie);
+
+          function drawPie() {
+            var data = new google.visualization.DataTable();
+            data.addColumn("string", "Sentiment");
+            data.addColumn("number", "Tweets");
+            data.addRows([
+              ["Positive", %s],
+              ["Negative", %s],
+            ]);
+
+            var options = {
+              title: "Sentiment Analysis by Percentage",
+              is3D: true,
+            pieSliceTextStyle: {color: "white" ,fontSize:20,bold: true},
+              colors: ["#51CDA0", "#ff5252", "#62B1FF"],
+              titleTextStyle: { color: "#000" ,fontSize:25,fontWeight:0},
+              backgroundColor: "#d0eaf7",
+              width: 700,
+              height: 500,
+            };
+
+            var chart1 = new google.visualization.PieChart(
+              document.getElementsByClassName("pieChart")[0]
+            );
+            chart1.draw(data, options);
+          }
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+          animationEnabled: true,
+          title: {
+            text: "Analysis by Count",
+            fontFamily: "monospace",
+            fontSize: 25,
+            fontWeight:900,
+          },
+          axisX: {
+            interval: 1,
+          },
+          axisY: {
+            title: "Counts ",
+            includeZero: true,
+          },
+          data: [
+            {
+              type: "bar",
+              dataPoints: [
+                { label: "Positive", y: %s,},
+                {label: "Negative",y: %s, },
+                { label: "Neutral", y: %s, },
+              ],
+            },
+          ],
+        });
+        chart.render();
+
+       </script>""" % (len(ptweets), len(ntweets),len(ptweets), len(ntweets),len(neutweets)))
+
+    f.write(""" <!-- Footer --><i class="place icon fas fa-long-arrow-alt-down fa-3x"></i>
+      <footer class="colored-section" id="footer">
       <!-- <p class="textplace">Contact</p> -->
       <div class="container-fluid">
         <p>
@@ -274,7 +266,7 @@ def set_html(tweets):
             <a class="mailbtn" href="mailto:satyarth2002pandey@gmail.com">S</a>
           </span>
         </p>
-      </div>
+        </div>
         </footer>
     </body>
     </html>

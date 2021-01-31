@@ -69,12 +69,11 @@ p {
   font-family: "Courier New", Courier, monospace;
 }
 
-.wcloud{
-  
+.wcloud {
   margin-top: 5%;
   background-position: center;
 }
-.birdimg{
+/* .birdimg{
   width: 60px;
 }
 #b1{
@@ -120,11 +119,10 @@ p {
   left: 35%;
   transform: rotate(-30deg);
 }
-  
-.cloudimg{
-box-shadow: 8px 8px 8px 8px rgb(92, 135, 214);
+   */
+.cloudimg {
+  box-shadow: 8px 8px 8px 8px rgb(92, 135, 214);
 }
-
 
 .posHeading {
   position: relative;
@@ -149,7 +147,6 @@ box-shadow: 8px 8px 8px 8px rgb(92, 135, 214);
   color: #000000;
 }
 .subdiv {
-  
   box-shadow: 5px 5px 5px 5px grey;
   border-radius: 10px;
   padding: 2% 2%;
@@ -160,7 +157,7 @@ box-shadow: 8px 8px 8px 8px rgb(92, 135, 214);
 
 .pos {
   box-shadow: 10px 10px 10px 10px rgb(92, 135, 214);
-  color:#FFFF;
+  color: #ffff;
   border-color: #000000;
   border-width: 10px;
   background-image: url("/static/smile.jpg");
