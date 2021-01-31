@@ -147,9 +147,9 @@ def set_html(tweets):
     # if os.path.exists("static/images/img_*.png"):
     dir_path = os.path.dirname(__file__)
 
-    for fname in os.listdir(dir_path + '\static\css\images'):
+    for fname in os.listdir(dir_path + '/static/css/images'):
       if fname.startswith('img_'):
-        os.remove(dir_path + "\static\css\images\\" + fname)
+        os.remove(dir_path + "/static/css/images/" + fname)
 
     image_name = "img_{}.png".format(str(uuid.uuid4()))
     wordcloud.to_file('static/css/images/{}'.format(image_name))
