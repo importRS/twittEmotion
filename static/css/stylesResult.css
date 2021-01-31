@@ -1,55 +1,294 @@
-body{
-    background-color:rgb(248, 243, 243);
+body {
+  background: #d0eaf7;
+  text-align: center;
+  font-family: "Montserrat";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat";
 }
 
-.pieChart{
+p {
+  margin-bottom: 0;
+}
+
+/* Containers */
+
+.container-fluid {
+  padding: 5px 5px;
+}
+
+/* Navigation Bar */
+.navbar-brand {
+  font-family: "Ubuntu";
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link {
+  font-size: 1.5rem;
+  font-weight: 200;
+  font-family: "Montserrat-Light";
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgb(243, 251, 253);
+}
+
+/* Sections */
+
+.colored-section {
+  background: linear-gradient(70deg, #005aad, #7dd1e6);
+  border-radius: 0 0 5% 5%;
+  color: #fff;
+}
+
+.pieChart {
+  height: 400px;
+  margin-bottom: 30px;
+  display: inline-block;
   font-size: x-large;
-  font-family:'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
-
-.barChart{
+#chartContainer {
+  background-color: #d0eaf7;
+}
+.barChart {
+  border-radius: 10px;
+  background-color: #d0eaf7;
+  display: inline-block;
   font-size: x-large;
-  font-family:'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
-.posHeading{
-font-family: 'Courier New', Courier, monospace;
-font-size: 2rem;
+.wcloud{
+  
+  margin-top: 5%;
+  background-position: center;
+}
+.birdimg{
+  width: 60px;
+}
+#b1{
+  position: absolute;
+  width: 90px;
+  top: 10%;
+  left: 14%;
+  transform: rotate(-18deg);
 }
 
-.negHeading{
-font-family: 'Courier New', Courier, monospace;
-font-size: 2rem;
+#b2{
+  position: absolute;
+  width: 50px;
+  top: 18%;
+  right: 35%;
+  transform: rotate(18deg);
+}
+#b3{
+  position: absolute;
+  width: 70px;
+  bottom: 10%;
+  left: 6%;
+  transform: rotate(25deg);
+}
+#b4{
+  position: absolute;
+  width: 80px;
+  bottom: 10%;
+  right: 10%;
+  transform: rotate(25deg);
+}
+#b5{
+  position: absolute;
+  width: 100px;
+  top: 5%;
+  right: 2%;
+  transform: rotate(-18deg);
+}
+#b6{
+  position: absolute;
+  width: 60px;
+  bottom: 10%;
+  left: 35%;
+  transform: rotate(-30deg);
+}
+  
+.cloudimg{
+box-shadow: 8px 8px 8px 8px rgb(92, 135, 214);
 }
 
-.neuHeading{
-font-family: 'Courier New', Courier, monospace;
-font-size: 2rem;
+
+.posHeading {
+  position: relative;
+  font-family: "Ubuntu";
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: #fff;
 }
 
-.pos{
-    border-color: black;
-    opacity: 0.8;
-    background-color: greenyellow ;
+.negHeading {
+  position: relative;
+  font-family: "Ubuntu";
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+
+.neuHeading {
+  position: relative;
+  font-family: "Ubuntu";
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: #000000;
+}
+.subdiv {
+  
+  box-shadow: 5px 5px 5px 5px grey;
+  border-radius: 10px;
+  padding: 2% 2%;
+  margin: 0;
+  background-color: #000000;
+  opacity: 0.6;
+}
+
+.pos {
+  box-shadow: 10px 10px 10px 10px rgb(92, 135, 214);
+  color:#FFFF;
+  border-color: #000000;
+  border-width: 10px;
+  background-image: url("/static/smile.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.9;
+  margin: 5% 5%;
+  padding: 3% 3%;
+  border-radius: 30px;
+  text-align: left;
+  font-size: 1.5rem;
+  font-family: "Hind";
+}
+
+.pos p {
+  margin-bottom: 2%;
+}
+
+.neg {
+  box-shadow: 10px 10px 10px 10px rgb(92, 135, 214);
+  color: #ffffff;
+  background-image: url("/static/sad.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 5% 5%;
+  padding: 3% 3%;
+  border-radius: 30px;
+  opacity: 0.9;
+  color: white;
+  text-align: left;
+  font-size: 1.5rem;
+  font-family: "Hind";
+}
+.neg p {
+  margin-bottom: 2%;
+}
+.neu {
+  box-shadow: 10px 10px 10px 10px rgb(92, 135, 214);
+  color: #ffffff;
+  background-image: url("/static/neutral.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 3% 3%;
+  margin: 5% 5%;
+  opacity: 0.9;
+  border-radius: 30px;
+  font-size: 1.5rem;
+  text-align: left;
+  font-family: "Hind";
+}
+.neu p {
+  margin-bottom: 2%;
+}
+
+/* Footer Section */
+#footer p {
+  font-size: larger;
+  color: #fff;
+  margin-bottom: 0;
+}
+#footer .container-fluid {
+  padding: 1% 1%;
+}
+
+/* .textplace{
+  font-size: large;
+  color: rgb(15, 89, 163);
+  position: relative;
+  bottom: 15%;
+  left: 20%;
+} */
+.place {
+  position: relative;
+  top: 10%;
+  left: 15%;
+  transform: rotate(30deg);
+}
+.mailbtn {
+  background: #11cdd4;
+  background-image: -webkit-linear-gradient(top, #005aad, #11999e);
+  background-image: -moz-linear-gradient(top, #005aad, #11999e);
+  background-image: -ms-linear-gradient(top, #005aad, #11999e);
+  background-image: -o-linear-gradient(top, #005aad, #11999e);
+  background-image: -webkit-gradient(to bottom, #005aad, #11999e);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: "PT Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 100;
+  padding: 2px 5px;
+  text-shadow: 1px 1px 20px #000000;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.mailbtn:hover {
+  background: #30e3cb;
+  background-image: -webkit-linear-gradient(top, #30e3cb, #2bc4ad);
+  background-image: -moz-linear-gradient(top, #30e3cb, #2bc4ad);
+  background-image: -ms-linear-gradient(top, #30e3cb, #2bc4ad);
+  background-image: -o-linear-gradient(top, #30e3cb, #2bc4ad);
+  background-image: -webkit-gradient(to bottom, #30e3cb, #2bc4ad);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.team {
+  color: black;
+}
+.social-icon {
+  margin: 20px 10px;
+}
+
+@media (max-width: 1028px) {
+  #title {
     text-align: center;
-    font-size: 1.5rem;
-    font-family: 'Courier New', Courier, monospace;
-}
+  }
 
-.neg{
-    border-color: black;
-    opacity: 0.8;
-    background-color: red;
-    text-align: center;
-    font-size: 1.5rem;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-.neu{
-border-color: black;
-opacity: 0.8;
-font-size: 1.5rem;
-background-color: aqua;
-text-align: center;
-font-family: 'Courier New', Courier, monospace;
+  .title-image {
+    position: static;
+    transform: rotate(0);
+  }
 }

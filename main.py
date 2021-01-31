@@ -148,8 +148,12 @@ def set_html(tweets):
                         random_state=21,
                         max_font_size=120).generate(wcloud)
     # if os.path.exists("static/images/img_*.png"):
-    for fname in os.listdir('/Users/satya/Desktop/ML_Twitter/static/images'):
-        os.remove("/Users/satya/Desktop/ML_Twitter/static/images/"+fname)
+    dir_path = os.path.dirname(full_path)
+
+    for fname in os.listdir(dir_path+'\static\images'):
+        print(fname)
+        os.remove(dir_path+"\static\images\\"+fname)
+
     image_name = "img_{}.png".format(str(uuid.uuid4()))
     wordcloud.to_file('static/images/{}'.format(image_name))
 
@@ -240,3 +244,23 @@ def set_html(tweets):
         </script>""" % (len(ptweets),len(ntweets),len(ptweets),len(ntweets),len(neutweets)))
     f.write("</body></html>\n")
     f.close()
+
+
+
+
+print("Path at terminal when executing this file")
+print(os.getcwd() + "\n")
+
+print("This file path, relative to os.getcwd()")
+print(__file__ + "\n")
+
+print("This file full path (following symlinks)")
+full_path = os.path.realpath(__file__)
+print(full_path + "\n")
+
+print("This file directory and name")
+path, filename = os.path.split(full_path)
+print(path + ' --> ' + filename + "\n")
+
+print("This file directory only")
+print(os.path.dirname(full_path))
