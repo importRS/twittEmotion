@@ -1,3 +1,55 @@
 body{
-    background-color: yellow;
+    background-color:rgb(248, 243, 243);
+}
+
+.pieChart{
+  font-size: x-large;
+  font-family:'Courier New', Courier, monospace;
+}
+
+.barChart{
+  font-size: x-large;
+  font-family:'Courier New', Courier, monospace;
+}
+
+.posHeading{
+font-family: 'Courier New', Courier, monospace;
+font-size: 2rem;
+}
+
+.negHeading{
+font-family: 'Courier New', Courier, monospace;
+font-size: 2rem;
+}
+
+.neuHeading{
+font-family: 'Courier New', Courier, monospace;
+font-size: 2rem;
+}
+
+.pos{
+    border-color: black;
+    opacity: 0.8;
+    background-color: greenyellow ;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.neg{
+    border-color: black;
+    opacity: 0.8;
+    background-color: red;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.neu{
+border-color: black;
+opacity: 0.8;
+font-size: 1.5rem;
+background-color: aqua;
+text-align: center;
+font-family: 'Courier New', Courier, monospace;
 }
