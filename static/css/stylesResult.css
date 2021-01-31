@@ -160,7 +160,7 @@ p {
   color: #ffff;
   border-color: #000000;
   border-width: 10px;
-  background-image: url("/static/smile.jpg");
+  background-image: url("{{ url_for('static', filename='smile.jpg') }}");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -180,7 +180,7 @@ p {
 .neg {
   box-shadow: 10px 10px 10px 10px rgb(92, 135, 214);
   color: #ffffff;
-  background-image: url("/static/sad.jpg");
+  background-image: url("{{ url_for('static', filename='sad.jpg') }}");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -199,7 +199,7 @@ p {
 .neu {
   box-shadow: 10px 10px 10px 10px rgb(92, 135, 214);
   color: #ffffff;
-  background-image: url("/static/neutral.jpg");
+  background-image: url("{{ url_for('static', filename='neutral.jpg') }}");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
