@@ -9,7 +9,6 @@ import os
 from wordcloud import WordCloud
 from shutil import copyfile
 
-plt.style.use('fivethirtyeight')
 
 image_name = ""
 
