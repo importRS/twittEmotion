@@ -15,8 +15,8 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesMain.css') }}"> -->
-    <link rel="stylesheet" href="static/css/stylesMain.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesMain.css') }}">
+    <!-- <link rel="stylesheet" href="static/css/stylesMain.css" /> -->
 
     <!-- Font Awesome -->
     <script
@@ -89,11 +89,12 @@
           </div>
 
           <div class="col-lg-6">
-            <img
+            <img class="title-image" src="{{ url_for('static', filename='twitterIMG.png') }}" alt='Twitter Logo' >
+            <!-- <img
               class="title-image"
               src="static/twitterIMG.png"
               alt="Twitter Image"
-            />
+            /> -->
           </div>
         </div>
       </div>
@@ -102,12 +103,18 @@
     <!-- Features -->
 
     <section class="white-section" id="features">
-      <img class="birdimg" id="b1" src="static/bird.png" alt="Twitter Bird">
+            <img class="birdimg" id="b1" src="{{ url_for('static', filename='bird.png') }}" alt='Bird Image' >
+            <img class="birdimg" id="b2" src="{{ url_for('static', filename='bird.png') }}" alt='Bird Image' >
+            <img class="birdimg" id="b3" src="{{ url_for('static', filename='bird.png') }}" alt='Bird Image' >
+            <img class="birdimg" id="b4" src="{{ url_for('static', filename='bird.png') }}" alt='Bird Image' >
+            <img class="birdimg" id="b5" src="{{ url_for('static', filename='bird.png') }}" alt='Bird Image' >
+            <img class="birdimg" id="b6" src="{{ url_for('static', filename='bird.png') }}" alt='Bird Image' >
+      <!-- <img class="birdimg" id="b1" src="static/bird.png" alt="Twitter Bird">
       <img class="birdimg" id="b2" src="static/bird.png" alt="Twitter Bird">
       <img class="birdimg" id="b3" src="static/bird.png" alt="Twitter Bird">
       <img class="birdimg" id="b4" src="static/bird.png" alt="Twitter Bird">
       <img class="birdimg" id="b5" src="static/bird.png" alt="Twitter Bird">
-      <img class="birdimg" id="b6" src="static/bird.png" alt="Twitter Bird">
+      <img class="birdimg" id="b6" src="static/bird.png" alt="Twitter Bird"> -->
       <div class="container-fluid">
         <div class="row">
           <div class="feature-box col-lg-4">
