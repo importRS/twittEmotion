@@ -1,4 +1,3 @@
-from werkzeug.wrappers import Request, Response
 from flask import Flask, render_template, request
 
 from main import *
@@ -27,6 +26,4 @@ def display():
 
 
 if (__name__ == "__main__"):
-    from werkzeug.serving import run_simple
-    app.debug = True
-    run_simple('localhost', 3000, app)
+    app.run(debug=True)
