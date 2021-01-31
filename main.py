@@ -1,3 +1,4 @@
+import uuid
 import tweepy
 from tweepy import OAuthHandler
 from textblob import TextBlob
@@ -14,7 +15,6 @@ from shutil import copyfile
 
 plt.style.use('fivethirtyeight')
 
-import uuid
 
 image_name = ""
 
@@ -38,16 +38,16 @@ class TwitterClient(object):
         except:
             print("Error: Authentication Failed")
 
-    #removing hashtags,emojis,stopwords
+    # removing hashtags,emojis,stopwords
     def clean_txt(self, txt):
 
         txt = txt.encode("ascii", "ignore")
         txt = txt.decode()
-        txt = re.sub(r'@[A-Z0-9a-z:]+', '', txt)  #replace username-tags
-        txt = re.sub(r'^[RT]+', '', txt)  #replace RT-tags
-        txt = re.sub('https?://[A-Za-z0-9./]+', '', txt)  #replace URLs
-        txt = re.sub("[^a-zA-Z]", " ", txt)  #replace hashtags
-        #removing punctuation,numbers and whitespace
+        txt = re.sub(r'@[A-Z0-9a-z:]+', '', txt)  # replace username-tags
+        txt = re.sub(r'^[RT]+', '', txt)  # replace RT-tags
+        txt = re.sub('https?://[A-Za-z0-9./]+', '', txt)  # replace URLs
+        txt = re.sub("[^a-zA-Z]", " ", txt)  # replace hashtags
+        # removing punctuation,numbers and whitespace
         res = re.sub(r'[^\w\s]', '', txt.lower())
         res = re.sub('\s+', ' ', res)
         return res
@@ -102,24 +102,27 @@ class TwitterClient(object):
             # print error (if any)
             print("Error : " + str(e))
 
-#class ends
+# class ends
+
 
 def set_html(tweets):
 
     # picking positive tweets from tweets
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
     # percentage of positive tweets
-    print("Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets)))
+    print("Positive tweets percentage: {} %".format(
+        100*len(ptweets)/len(tweets)))
     # picking negative tweets from tweets
     ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
     # picking neutral tweets from tweets
     neutweets = [tweet for tweet in tweets if tweet['sentiment'] == 'neutral']
 
     # percentage of negative tweets
-    print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets)))
+    print("Negative tweets percentage: {} %".format(
+        100*len(ntweets)/len(tweets)))
     # percentage of neutral tweets
-    print("Neutral tweets percentage: {} %".format(100*(len(tweets) -(len( ntweets )+len( ptweets)))/len(tweets)))
-
+    print("Neutral tweets percentage: {} %".format(
+        100*(len(tweets) - (len(ntweets)+len(ptweets)))/len(tweets)))
 
     textTweet = []
     cleanTweet = []
@@ -131,136 +134,149 @@ def set_html(tweets):
     for i in range(0, len(tweets)):
         sentimentTweet.append(tweets[i]['sentiment'])
 
-
     # Create a dataframe of collected tweets
     df = pd.concat([
         pd.DataFrame(textTweet, columns=['tweet']),
         pd.DataFrame(cleanTweet, columns=['cleantweet'])
-    ],axis=1)
+    ], axis=1)
     df = pd.concat([df, pd.DataFrame(sentimentTweet, columns=['sentiment'])],
-                axis=1)
-
+                   axis=1)
 
     wcloud = ' '.join([i for i in df['cleantweet']])
 
     wordcloud = WordCloud(width=1000,
-                        height=700,
-                        random_state=21,
-                        max_font_size=120).generate(wcloud)
+                          height=700,
+                          random_state=21,
+                          max_font_size=120).generate(wcloud)
     # if os.path.exists("static/images/img_*.png"):
     dir_path = os.path.dirname(full_path)
 
     for fname in os.listdir(dir_path+'\static\images'):
-        print(fname)
         os.remove(dir_path+"\static\images\\"+fname)
 
     image_name = "img_{}.png".format(str(uuid.uuid4()))
     wordcloud.to_file('static/images/{}'.format(image_name))
 
-    copyfile('templates/index.html','templates/copyindex.html')
-    f = open('templates/copyindex.html','a', encoding='utf-8')
+    copyfile('templates/index.html', 'templates/copyindex.html')
+    f = open('templates/copyindex.html', 'a', encoding='utf-8')
 
-    f.write("<img src='{{ url_for('static', filename='images/%s') }}' alt='wordcloud' >" % (image_name))
-
-    f.write("<h1 class='posHeading'>Recent Positive Tweets</h1>\n")
-    f.write("<div class='pos'>\n")
+    f.write(
+        "<img src='{{ url_for('static', filename='images/%s') }}' alt='wordcloud' >" % (image_name))
+    f.write("</div>")
+    f.write(""" 
+       <div class="pos" id="posid">
+       <h1 class="posHeading">Recent Positive Tweets</h1>
+      <div class="subdiv">
+                 """)
     for tweet in ptweets[:10]:
         f.write("<p>"+tweet['text']+"</p>\n")
     f.write("</div>\n")
+    f.write("</div>\n")
 
-    f.write("<h1 class='negHeading'>Recent Negative Tweets</h1>\n")
-    f.write("<div class='neg'>\n")
+    f.write("""<div class="neg" id="negid">
+       <h1 class="negHeading">Recent Negative Tweets</h1>
+      <div class="subdiv">
+    """)
     for tweet in ntweets[:10]:
         f.write("<p>"+tweet['text']+"</p>\n")
     f.write("</div>\n")
+    f.write("</div>\n")
 
-    f.write("<h1 class='neuHeading'>Recent Neutral Tweets</h1>\n")
-    f.write("<div class='neu'>\n")
+    f.write("""
+    <div class="neu" id="neuid">
+      <h1 class="neuHeading">Recent Neutral Tweets</h1>
+      <div class="subdiv">
+    """)
     for tweet in neutweets[:10]:
         f.write("<p>"+tweet['text']+"</p>\n")
     f.write("</div>\n")
+    f.write("</div>\n")
+
     f.write("""
-           <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-           <script type="text/javascript">
+    <script type="text/javascript">
+      google.charts.load("current", { packages: ["corechart"] });
 
-          google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawPie);
 
-          google.charts.setOnLoadCallback(drawCharts);
+      function drawPie() {
+        var data = new google.visualization.DataTable();
+        data.addColumn("string", "Sentiment");
+        data.addColumn("number", "Tweets");
+        data.addRows([
+          ["Positive", %s],
+          ["Negative", %s],
+        ]);
 
+        var options = {
+          title: "Sentiment Analysis by Percentage",
+          is3D: true,
+        pieSliceTextStyle: {color: "white" ,fontSize:20,bold: true},
+          colors: ["#51CDA0", "#ff5252", "#62B1FF"],
+          titleTextStyle: { color: "#000" ,fontSize:25,fontWeight:0},
+          backgroundColor: "#d0eaf7",
+          width: 700,
+          height: 500,
+        };
 
-          function drawPie() {
+        var chart1 = new google.visualization.PieChart(
+          document.getElementsByClassName("pieChart")[0]
+        );
+        chart1.draw(data, options);
+      }
 
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Sentiment');
-            data.addColumn('number', 'Tweets');
-            data.addRows([
-              ['Positive', %s],
-              ['Negative', %s],
-            ]);
+      var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        title: {
+          text: "Analysis by Count",
+          fontFamily: "monospace",
+          fontSize: 25,
+          fontWeight:900,
+        },
+        axisX: {
+          interval: 1,
+        },
+        axisY: {
+          title: "Counts ",
+          includeZero: true,
+        },
+        data: [
+          {
+            type: "bar",
+            toolTipContent:
+              '<img src="https://canvasjs.com/wp-content/uploads/images/gallery/javascript-column-bar-charts/"{url}"" style="width:40px; height:20px;"> <b>{label}</b><br>Budget: ${y}bn<br>{gdp}% of GDP',
+            dataPoints: [
+              { label: "Positive", y: %s},
+              {
+                label: "Negative",
+                y: %s
+              },
+              { label: "Neutral", y: %s },
+            ],
+          },
+        ],
+      });
 
-            var options = {'title':'Sentiment Analysis by Percentage',
-                            is3D:true,
-                           'colors':['#2D912D','#FF1919','#62B1FF'],
-                           titleTextStyle: {color:'#47525C'},
-                           'backgroundColor':'#C0DEED',
-                           'width':500,
-                           'height':300};
+      chart.render();
 
-            var chart1 = new google.visualization.PieChart(document.getElementById('pieChart'));
-            chart1.draw(data, options);
-          }
+    </script>""" % (len(ptweets), len(ntweets), len(ptweets), len(ntweets), len(neutweets)))
 
-
-
-          function drawBar() {
-
-            var data = google.visualization.arrayToDataTable([
-              ['Sentiment', 'Positive', 'Negative', 'Neutral'],
-              ['Sentiments' ,%s, %s, %s]
-            ]);
-
-            var options = {
-              animation: {
-              duration: 1000,
-              easing: 'out',
-              startup: true
-                       },
-              title:'Sentiment Analysis by Count',
-              titleTextStyle: {color:'#47525C'},
-              hAxis: {minValue: 0}, 
-              'backgroundColor':'#C0DEED',
-              'colors':['#2D912D','#FF1919','#4169E1'],
-              'width':500, 'height':300
-            };
-
-            var chart2 = new google.visualization.BarChart(document.getElementById('barChart'));
-            chart2.draw(data, options);
-          }
-
-          function drawCharts() {
-            drawPie();
-            drawBar();
-          }
-        </script>""" % (len(ptweets),len(ntweets),len(ptweets),len(ntweets),len(neutweets)))
-    f.write("</body></html>\n")
+    f.write(""" <!-- Footer -->
+    
+    <i class="place icon fas fa-long-arrow-alt-down fa-3x"></i>
+    <footer class="colored-section" id="footer">
+      <!-- <p class="textplace">Contact</p> -->
+      <div class="container-fluid">
+        <p>
+          © Copyright 2021 
+          <span class="team">
+            from_pandeys_import_
+            <a class="mailbtn" href="mailto:rajneeshpandey1708@gmail.com">R</a>
+            <a class="mailbtn" href="mailto:satyarth2002pandey@gmail.com">S</a>
+          </span>
+        </p>
+      </div>
+        </footer>
+    </body>
+    </html>
+    """)
     f.close()
-
-
-
-
-print("Path at terminal when executing this file")
-print(os.getcwd() + "\n")
-
-print("This file path, relative to os.getcwd()")
-print(__file__ + "\n")
-
-print("This file full path (following symlinks)")
-full_path = os.path.realpath(__file__)
-print(full_path + "\n")
-
-print("This file directory and name")
-path, filename = os.path.split(full_path)
-print(path + ' --> ' + filename + "\n")
-
-print("This file directory only")
-print(os.path.dirname(full_path))

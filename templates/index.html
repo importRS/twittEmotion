@@ -1,13 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Twitter </title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesResult.css') }}">
-</head>
-<body>
-  <h1>Hi There!</h1>
-  <div id="pieChart"></div>
-  <div id="barChart"></div>
-  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitter</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500&family=Montserrat:wght@900&family=Ubuntu:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesResult.css') }}">
+    <!-- <link rel="stylesheet" href="static/css/stylesResult.css" /> -->
+
+    <!-- Font Awesome -->
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"
+    ></script>
+
+    <!-- Bootstrap Scripts -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!--chart libraries-->
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  </head>
+  <body>
+    <section class="colored-section" id="title">
+      <div class="container-fluid">
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+          <a class="navbar-brand" href="">twittEmotion</a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarTogglerDemo02"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item clr">
+                <a class="nav-link" href="#visuals">Visuals</a>
+              </li>
+               <li class="nav-item clr">
+                <a class="nav-link" href="#wordcloud">WordCloud</a>
+              </li>
+              <li class="nav-item clr">
+                <a class="nav-link" href="#posid">Positive</a>
+              </li>
+              <li class="nav-item clr">
+                <a class="nav-link" href="#negid">Negative</a>
+              </li>
+              <li class="nav-item clr">
+                <a class="nav-link" href="#neuid">Neutral</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Title -->
+      </div>
+    </section>
+ 
+    <div class="pieChart"></div>
+    <div class="barChart" id="chartContainer" style="height: 370px; width: 50%"></div>
+
+    <div class='wcloud' id="wordcloud">
+      <h4>Word Cloud</h4> 
+        <!-- <img class= "cloudimg" src="static/images/img_5321aea7-37bc-490c-ba4b-b84ad41f0158.png" alt="wordcloud" width='800px'> -->
