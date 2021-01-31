@@ -152,16 +152,17 @@ def set_html(tweets):
     # if os.path.exists("static/images/img_*.png"):
     dir_path = os.path.dirname(__file__)
 
-    for fname in os.listdir(dir_path + '\static\images'):
-        os.remove(dir_path + "\static\images\\" + fname)
+    for fname in os.listdir(dir_path + '\static\css\images'):
+      if fname.startswith('img_'):
+        os.remove(dir_path + "\static\css\images\\" + fname)
 
     image_name = "img_{}.png".format(str(uuid.uuid4()))
-    wordcloud.to_file('static/images/{}'.format(image_name))
+    wordcloud.to_file('static/css/images/{}'.format(image_name))
 
     copyfile('templates/index.html', 'templates/copyindex.html')
     f = open('templates/copyindex.html', 'a', encoding='utf-8')
 
-    f.write( "<img src='{{ url_for('static', filename='images/%s') }}' alt='wordcloud' >" % (image_name))
+    f.write( "<img class='cloudimg' src='{{url_for('static', filename='css/images/%s') }}' alt='wordcloud' >" % (image_name))
     f.write("</div>")
     f.write("""<div class="pos" id="posid">
        <h1 class="posHeading">Recent Positive Tweets</h1>
