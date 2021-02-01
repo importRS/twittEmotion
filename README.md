@@ -28,3 +28,4 @@
 <hr>
 <h4>This Project was made for HackMol 2.0 Hackathon.👇🏼</h4>
 <img src="README_Resources/HackmolStats.jpg" width="380">
+<p>Our Team <strong><em>from_pandeys_import_RS</em></strong> got <strong>6th</strong> Position.</p>
