@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import *
 
 from main import *
 
@@ -12,17 +12,22 @@ def home():
 @app.route("/display", methods=["GET", "POST"])
 def display():
     if request.method == "POST":
-        query = request.form.get("userQuery")
-        print('query = ' + query)
+        userQuery = request.form['userQuery']
+        print(userQuery)
         # creating object of TwitterClient Class
         api = TwitterClient()
         # calling function to get tweets
-        tweets = api.get_tweets(query)
+        tweets = api.get_tweets(userQuery)
         set_html(tweets)
-        return render_template("copyindex.html")
+        return redirect(f'result/{userQuery}')
 
     else:
         return render_template('inputMain.html')
+
+
+@app.route('/result/<userQuery>')
+def result(userQuery):
+    return render_template("copyindex.html")
 
 
 if (__name__ == "__main__"):
