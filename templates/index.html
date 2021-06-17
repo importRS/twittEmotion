@@ -94,3 +94,117 @@
 
     <div class='wcloud' id="wordcloud">
       <h4>Word Cloud</h4> 
+            <img
+        class="cloudimg"
+        src="../static/css/images/{{ img_name }}"
+        alt="wordcloud"
+      />
+    </div>
+    <div class="pos" id="posid">
+      <h1 class="posHeading">Recent Positive Tweets</h1>
+      <div class="subdiv">
+        {% for tweet in pos_tweets[:10] %}
+        <p>{{ tweet['text'] }}</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="neg" id="negid">
+      <h1 class="negHeading">Recent Negative Tweets</h1>
+      <div class="subdiv">
+        {% for tweet in neg_tweets[:10] %}
+        <p>{{ tweet['text'] }}</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="neu" id="neuid">
+      <h1 class="neuHeading">Recent Neutral Tweets</h1>
+      <div class="subdiv">
+        {% for tweet in neutral_tweets[:10] %}
+        <p>{{ tweet['text'] }}</p>
+        {% endfor %}
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawPie);
+
+        function drawPie() {
+          var data = new google.visualization.DataTable();
+          data.addColumn("string", "Sentiment");
+          data.addColumn("number", "Tweets");
+          data.addRows([
+            ["Positive", Number("{{ pos_tweets|length }}") ],
+            ["Negative", Number("{{ neg_tweets|length }}")],
+          ]);
+
+          var options = {
+            title: "Sentiment Analysis by Percentage",
+            is3D: true,
+          pieSliceTextStyle: {color: "white" ,fontSize:20,bold: true},
+            colors: ["#51CDA0", "#ff5252", "#62B1FF"],
+            titleTextStyle: { color: "#000" ,fontSize:25,fontWeight:0},
+            backgroundColor: "#d0eaf7",
+            width: 700,
+            height: 500,
+          };
+
+          var chart1 = new google.visualization.PieChart(
+            document.getElementsByClassName("pieChart")[0]
+          );
+          chart1.draw(data, options);
+        }
+
+      var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        title: {
+          text: "Analysis by Count",
+          fontFamily: "monospace",
+          fontSize: 25,
+          fontWeight:900,
+        },
+        axisX: {
+          interval: 1,
+        },
+        axisY: {
+          title: "Counts ",
+          includeZero: true,
+        },
+        data: [
+          {
+            type: "bar",
+            dataPoints: [
+              { label: "Positive", y: Number("{{ pos_tweets|length }}") ,},
+              {label: "Negative",y: Number("{{ neg_tweets|length }}") , },
+              { label: "Neutral", y: Number("{{ neutral_tweets|length }}"), },
+            ],
+          },
+        ],
+      });
+      chart.render();
+    </script>
+    
+
+    <!-- Footer -->
+    <i class="place icon fas fa-long-arrow-alt-down fa-3x"></i>
+    <footer class="colored-section" id="footer">
+      <div class="container-fluid">
+        <p>
+          © Copyright 2021
+          <span class="team">
+            from_pandeys_import_
+            <a class="mailbtn" href="mailto:rajneeshpandey1708@gmail.com">R</a>
+            <a class="mailbtn" href="mailto:satyarth2002pandey@gmail.com">S</a>
+          </span>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
