@@ -26,6 +26,8 @@
 <li> The Common Ideas talked about are shown as a WordCloud.</li>
 <li> Recent Positive, Negative and Neutral Tweets are also Displayed.</li></ul>
 <hr>
+<h4>Note: To Run in Development mode, Use your own Twitter API Keys.</h4>
+<hr>
 <h4>This Project was made for HackMol 2.0 Hackathon.👇🏼</h4>
 <img src="README_Resources/HackmolStats.jpg" width="380">
 <p>Our Team <strong><em>from_pandeys_import_RS</em></strong> got <strong>6th</strong> Position.</p>
